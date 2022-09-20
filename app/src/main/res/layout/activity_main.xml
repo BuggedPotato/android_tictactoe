@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    >
+
+    <TextView
+        android:id="@+id/tvRoomKey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:id="@+id/tvPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rlRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/ivBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/board" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/ibtnOTurn"
+            android:layout_height="64dp"
+            android:layout_width="match_parent"
+            android:src="@drawable/o"
+            android:scaleType="fitCenter"
+            android:background="@drawable/rounded_button_y"
+
+            android:padding="15dp"
+            />
+        <ImageButton
+            android:id="@+id/ibtnXTurn"
+            android:layout_height="64dp"
+            android:layout_width="match_parent"
+            android:src="@drawable/x"
+            android:scaleType="fitCenter"
+            android:background="@drawable/rounded_button_y"
+
+            android:padding="15dp"
+            />
+
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
