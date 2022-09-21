@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 	// 1 = x, -1 = o
 	private GameRoom room;
 	private String roomKey;
+
+	private ProgressDialog waitingDialog;
 
 	private DatabaseReference dbRooms = FirebaseDatabase.getInstance().getReference("/rooms/");
 
@@ -104,14 +107,19 @@ public class MainActivity extends AppCompatActivity {
 				room.assignReadRoomData( readRoom );
 				tvRoomKey.setText( room.getRoomKey() );
 				setTurnButtonColour( room.getTurn() == 1 );
+				if( room.isOpen() && waitingDialog == null )
+					waitingDialog = ProgressDialog.show( MainActivity.this, "", "Oczekiwanie na gracza...", true );
+				else if( !room.isOpen() && waitingDialog != null )
+				{
+					waitingDialog.dismiss();
+					waitingDialog = null;
+				}
 				int id = room.getLastTileChanged();
 				if( id != -1 )
 					updateBoard( id );
 				Log.d( "DEBUG", "state: " + room.gameState );
 				if( room.gameState != 0 )
-				{
 					showEndGameDialog( room.gameState );
-				}
 			}
 
 			@Override
