@@ -129,6 +129,13 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
+	@Override
+	public void onBackPressed() {
+		room.gameState = -420;
+		room.pushRoomToDB();
+		super.onBackPressed();
+	}
+
 	private void generateBoardViews() {
 		LayoutInflater li = (LayoutInflater) getApplicationContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 		ImageView tmp = new ImageView( getApplicationContext() );
@@ -214,13 +221,15 @@ public class MainActivity extends AppCompatActivity {
 	{
 		// result = 1 => x, result = -1 => o, result = 0 => draw
 		AlertDialog.Builder bob = new AlertDialog.Builder( this );
-		String title;
+		String title = "";
 		if( result == 1 )
 			title = "Wygrana krzyżyków!";
 		else if ( result == -1 )
 			title = "Wygrana kółek!";
-		else
+		else if ( result == -100 )
 			title = "Remis";
+		else if ( result == -420 )
+			title = "Przeciwnik wyszedł z gry...";
 		bob.setTitle( title );
 
 		bob.setPositiveButton( "Zagraj jeszcze raz", new DialogInterface.OnClickListener() {
@@ -229,15 +238,6 @@ public class MainActivity extends AppCompatActivity {
 				restart();
 			}
 		} );
-//		if( this.online )
-//		{
-//			bob.setNeutralButton("Rewanż!", new DialogInterface.OnClickListener() {
-//				@Override
-//				public void onClick(DialogInterface dialogInterface, int i) {
-//					// TODO
-//				}
-//			});
-//		}
 		bob.setNegativeButton( "Do menu", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick( DialogInterface dialogInterface, int i ) {
